@@ -1,0 +1,43 @@
+version: '3'
+services:
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: DB
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      TZ: Asia/Tokyo
+  migrate:
+    build: ./migrate
+    volumes:
+      - ./migrate:/migrate
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+  app:
+    build: ./app
+    ports:
+      - "5001:5001"
+    environment:
+      TZ: Asia/Tokyo
+    volumes:
+      - ./app:/app
+    restart: always
+  mock:
+    build: ./mock
+    ports:
+      - "5002:5002"
+    environment:
+      TZ: Asia/Tokyo
+    volumes:
+      - ./mock:/mock
+    restart: always
+volumes:
+  db_data:

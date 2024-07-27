@@ -1,0 +1,4 @@
+local:
+    dialect: mysql 
+    datasource: root:password@(db:3306)/DB?parseTime=true
+    dir: /migrate/sql

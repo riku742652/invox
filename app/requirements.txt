@@ -1,0 +1,4 @@
+requests
+Flask
+SQLAlchemy==1.4.52
+mysqlclient
